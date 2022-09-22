@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: get-population
+spec:
+  template:
+    spec:
+      containers:
+        - name: get-population-container
+          image: minokohlar/get-population
+          command: ["/bin/sh", "-c", "--"]
+          args: ["go run get-population.go;"]
+          env:
+            - name: API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: population-configmap
+                  key: api-url
+            - name: CITIES
+              valueFrom:
+                configMapKeyRef:
+                  name: population-configmap
+                  key: cities
+          ports:
+            - containerPort: 3000
+      restartPolicy: Never
+  backoffLimit: 4

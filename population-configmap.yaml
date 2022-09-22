@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: population-configmap
+data:
+  api-url: https://countriesnow.space/api/v0.1/countries/population/cities
+  cities: "lagos,london,paris,bangkok,istanbul"
